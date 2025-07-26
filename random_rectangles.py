@@ -35,7 +35,7 @@ def draw_jagged_lines(image_path):
     img.show()
 
 def main():
-    draw_jagged_lines("dog2.jpg")
+    draw_jagged_lines("dog.jpg")
 
 if __name__ == "__main__":
     main()
