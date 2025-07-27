@@ -21,15 +21,14 @@ def generate_jagged_grid(image_path):
     width, height = img.size
     grid = np.zeros((height, width), dtype=np.int8)
     
-    # Calculate spacing for horizontal lines (6 sections = 5 lines)
     horizontal_sections = 6
     vertical_spacing = height / horizontal_sections
     
-    # Generate 5 horizontal lines
+    #HORIZONTAL LINES
     num_horizontal = 5
     num_control_points = width // 20
     
-    horizontal_positions = []  # Store horizontal line positions
+    horizontal_positions = []
     for i in range(1, num_horizontal + 1):
         base_y = int(i * vertical_spacing)
         horizontal_positions.append(base_y)
@@ -40,15 +39,13 @@ def generate_jagged_grid(image_path):
             y = min(max(y, 0), height - 1)
             grid[y, x] = 1
     
-    # Calculate spacing for vertical lines (10 sections = 9 lines)
+    #VERTICAL LINES
     vertical_sections = 10
     horizontal_spacing = width / vertical_sections
-    
-    # Generate 9 vertical lines
     num_vertical = 9
     num_control_points_vertical = height // 20
     
-    vertical_positions = []  # Store vertical line positions
+    vertical_positions = []
     for i in range(1, num_vertical + 1):
         base_x = int(i * horizontal_spacing)
         vertical_positions.append(base_x)
@@ -59,7 +56,7 @@ def generate_jagged_grid(image_path):
             x = min(max(x, 0), width - 1)
             grid[y, x] = 1
     
-    # Calculate tile centers
+    #CENTERS
     tile_centers = []
     for i in range(len(horizontal_positions) + 1):
         row = []
@@ -76,10 +73,9 @@ def display_grid(grid, tile_centers):
     plt.figure(figsize=(12, 8))
     plt.imshow(grid, cmap='binary')
     
-    # Plot tile centers
     for row in tile_centers:
         for (x, y) in row:
-            plt.plot(x, y, 'r.', markersize=5)  # Red dots for centers
+            plt.plot(x, y, 'r.', markersize=5)
             
     plt.title('Grid Visualization (white = lines, black = empty, red dots = tile centers)')
     plt.axis('on')
